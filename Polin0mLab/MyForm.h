@@ -1,7 +1,6 @@
 
 #pragma once
 #include "List.h"
-#include <cctype> 
 
 namespace Polin0mLab {
 
@@ -27,6 +26,9 @@ namespace Polin0mLab {
 			A = new List;
 			B = new List;
 			C = new List;
+			D = new List;
+			E = new List;;
+
 		}
 
 	protected:
@@ -56,7 +58,7 @@ namespace Polin0mLab {
 	private: System::Windows::Forms::Button^  button2;
 	private: System::Windows::Forms::Button^  button3;
 			 int k, x, y, z, k1, x1, y1, z1;
-			 List *A, *B, *C;
+			 List *A, *B, *C, *D, *E;
 	private: System::Windows::Forms::Button^  button4;
 	private: System::Windows::Forms::Button^  button5;
 	private: System::Windows::Forms::Label^  label1;
@@ -423,22 +425,22 @@ namespace Polin0mLab {
 					if (i != (A1->GetLen() - 1))
 					{
 						txt->Text += System::Convert::ToString(A1->GetCurrData(i));
-						txt->Text += "x^";
+						txt->Text += " x^";
 						txt->Text += System::Convert::ToString(A1->GetCurrDegree(i) / 100);
-						txt->Text += "y^";
+						txt->Text += " y^";
 						txt->Text += System::Convert::ToString(A1->GetCurrDegree(i) / 10 - int(A1->GetCurrDegree(i) / 100) * 10);
-						txt->Text += "z^";
+						txt->Text += " z^";
 						txt->Text += System::Convert::ToString(A1->GetCurrDegree(i) % 10);
-						txt->Text += "+";
+						txt->Text += " + ";
 					}
 					else
 					{
 						txt->Text += System::Convert::ToString(A1->GetCurrData(i));
-						txt->Text += "x^";
+						txt->Text += " x^";
 						txt->Text += System::Convert::ToString(A1->GetCurrDegree(i) / 100);
-						txt->Text += "y^";
+						txt->Text += " y^";
 						txt->Text += System::Convert::ToString(A1->GetCurrDegree(i) / 10 - int(A1->GetCurrDegree(i) / 100) * 10);
-						txt->Text += "z^";
+						txt->Text += " z^";
 						txt->Text += System::Convert::ToString(A1->GetCurrDegree(i) % 10);
 					}
 				}
@@ -483,8 +485,15 @@ private: System::Void MyForm_Load(System::Object^  sender, System::EventArgs^  e
 private: System::Void textBox1_TextChanged(System::Object^  sender, System::EventArgs^  e) {
 }
 private: System::Void button3_Click(System::Object^  sender, System::EventArgs^  e) {
-	C = sum(A, B);
-	print(C, textBox11);
+	if (C->IsEmpty()) {
+		C = sum(A, B);
+		print(C, textBox11);
+	}
+	else {
+		C = sum(C,sum(A, B));
+		print(C, textBox11);
+	}
+	
 }
 private: System::Void textBox11_TextChanged(System::Object^  sender, System::EventArgs^  e) {
 }
@@ -588,12 +597,24 @@ private: System::Void textBox8_KeyPress(System::Object^  sender, System::Windows
 		e->Handled = true;
 }
 private: System::Void button4_Click(System::Object^  sender, System::EventArgs^  e) {
-	C = raz(A, B);
-	print(C, textBox11);
+	if (D->IsEmpty()) {
+		D = raz(A, B);
+		print(D, textBox11);
+	}
+	else {
+		D = raz(D, raz(A, B));
+		print(D, textBox11);
+	}
 }
 private: System::Void button5_Click(System::Object^  sender, System::EventArgs^  e) {
-	C = pro(A, B);
-	print(C, textBox11);
+	if (E->IsEmpty()) {
+		E = pro(A, B);
+		print(E, textBox11);
+	}
+	else {
+		E = pro(E, pro(A, B));
+		print(E, textBox11);
+	}
 }
 private: System::Void button6_Click(System::Object^  sender, System::EventArgs^  e) {
 	if (!A->IsEmpty()) {
@@ -614,6 +635,14 @@ private: System::Void button6_Click(System::Object^  sender, System::EventArgs^ 
 	}
 	if (!C->IsEmpty()) {
 		C->DelAll();
+		textBox11->Text = "";
+	}
+	if (!D->IsEmpty()) {
+		D->DelAll();
+		textBox11->Text = "";
+	}
+	if (!E->IsEmpty()) {
+		E->DelAll();
 		textBox11->Text = "";
 	}
 }
