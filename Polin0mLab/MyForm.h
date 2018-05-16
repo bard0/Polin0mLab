@@ -69,6 +69,7 @@ namespace Polin0mLab {
 	private: System::Windows::Forms::Label^  label8;
 	private: System::Windows::Forms::Label^  P;
 	private: System::Windows::Forms::Label^  label9;
+	private: System::Windows::Forms::Button^  button6;
 
 
 
@@ -111,6 +112,7 @@ namespace Polin0mLab {
 			this->label8 = (gcnew System::Windows::Forms::Label());
 			this->P = (gcnew System::Windows::Forms::Label());
 			this->label9 = (gcnew System::Windows::Forms::Label());
+			this->button6 = (gcnew System::Windows::Forms::Button());
 			this->SuspendLayout();
 			// 
 			// textBox1
@@ -359,11 +361,22 @@ namespace Polin0mLab {
 			this->label9->Text = L"¬ведите данные дл€ мономов";
 			this->label9->Click += gcnew System::EventHandler(this, &MyForm::label9_Click);
 			// 
+			// button6
+			// 
+			this->button6->Location = System::Drawing::Point(268, 312);
+			this->button6->Name = L"button6";
+			this->button6->Size = System::Drawing::Size(337, 29);
+			this->button6->TabIndex = 19;
+			this->button6->Text = L"¬вести данные заново";
+			this->button6->UseVisualStyleBackColor = true;
+			this->button6->Click += gcnew System::EventHandler(this, &MyForm::button6_Click);
+			// 
 			// MyForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(847, 373);
+			this->Controls->Add(this->button6);
 			this->Controls->Add(this->label9);
 			this->Controls->Add(this->P);
 			this->Controls->Add(this->label8);
@@ -401,20 +414,35 @@ namespace Polin0mLab {
 		private: void print(List *A1, System::Windows::Forms::TextBox^ txt)
 		{
 			txt->Text = "";
-			char **arr_ = new char*[A1->GetLen()];
-			for (int i = 0; i < A1->GetLen(); i++) {
-				arr_[i] = new char[A1->power()];
+			if (A1->IsEmpty()) {
+				txt->Text = "0";
 			}
-			arr_ = A1->print();
-			for (int i = 0; i < A1->GetLen(); i++)
-			{
-
-				std::string str(arr_[i], A1->power());
-				String^ str2 = gcnew String(str.c_str());
-				txt->Text += str2;
-
+			else {
+				for (int i = 0; i < A1->GetLen(); i++)
+				{
+					if (i != (A1->GetLen() - 1))
+					{
+						txt->Text += System::Convert::ToString(A1->GetCurrData(i));
+						txt->Text += "x^";
+						txt->Text += System::Convert::ToString(A1->GetCurrDegree(i) / 100);
+						txt->Text += "y^";
+						txt->Text += System::Convert::ToString(A1->GetCurrDegree(i) / 10 - int(A1->GetCurrDegree(i) / 100) * 10);
+						txt->Text += "z^";
+						txt->Text += System::Convert::ToString(A1->GetCurrDegree(i) % 10);
+						txt->Text += "+";
+					}
+					else
+					{
+						txt->Text += System::Convert::ToString(A1->GetCurrData(i));
+						txt->Text += "x^";
+						txt->Text += System::Convert::ToString(A1->GetCurrDegree(i) / 100);
+						txt->Text += "y^";
+						txt->Text += System::Convert::ToString(A1->GetCurrDegree(i) / 10 - int(A1->GetCurrDegree(i) / 100) * 10);
+						txt->Text += "z^";
+						txt->Text += System::Convert::ToString(A1->GetCurrDegree(i) % 10);
+					}
+				}
 			}
-
 		}
 	private: System::Void textBox7_TextChanged(System::Object^  sender, System::EventArgs^  e) {
 	}
@@ -566,6 +594,28 @@ private: System::Void button4_Click(System::Object^  sender, System::EventArgs^ 
 private: System::Void button5_Click(System::Object^  sender, System::EventArgs^  e) {
 	C = pro(A, B);
 	print(C, textBox11);
+}
+private: System::Void button6_Click(System::Object^  sender, System::EventArgs^  e) {
+	if (!A->IsEmpty()) {
+		A->DelAll();
+		textBox1->Text = "";
+		textBox2->Text = "";
+		textBox3->Text = "";
+		textBox4->Text = "";
+		textBox9->Text = "";
+	}
+	if (!B->IsEmpty()) {
+		B->DelAll();
+		textBox6->Text = "";
+		textBox7->Text = "";
+		textBox8->Text = "";
+		textBox5->Text = ""; 
+		textBox10->Text = "";
+	}
+	if (!C->IsEmpty()) {
+		C->DelAll();
+		textBox11->Text = "";
+	}
 }
 };
 }

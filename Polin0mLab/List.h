@@ -20,8 +20,6 @@ public:
 	void Del(int i);
 	void DelAll();
 	
-	char **print();
-
 	int GetLen();
 	void SetLen(int _len);
 
@@ -29,7 +27,7 @@ public:
 	int GetCurrData(int i);
 	void SetCurrDegree(int i, int degree);
 	void SetCurrData(int i, int data);
-	int power();
+
 	bool isContain(int degree);
 
 	friend List *sum(List *pol1, List *pol2);
