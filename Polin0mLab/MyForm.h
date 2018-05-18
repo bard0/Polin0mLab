@@ -522,15 +522,8 @@ private: System::Void MyForm_Load(System::Object^  sender, System::EventArgs^  e
 private: System::Void textBox1_TextChanged(System::Object^  sender, System::EventArgs^  e) {
 }
 private: System::Void button3_Click(System::Object^  sender, System::EventArgs^  e) {
-	if (C->IsEmpty()) {
 		C = sum(A, B);
 		print(C, textBox11);
-	}
-	else {
-		C = sum(C,sum(A, B));
-		print(C, textBox11);
-	}
-	
 }
 private: System::Void textBox11_TextChanged(System::Object^  sender, System::EventArgs^  e) {
 }
@@ -634,27 +627,19 @@ private: System::Void textBox8_KeyPress(System::Object^  sender, System::Windows
 		e->Handled = true;
 }
 private: System::Void button4_Click(System::Object^  sender, System::EventArgs^  e) {
-	if (D->IsEmpty()) {
+	
 		D = raz(A, B);
 		print(D, textBox11);
-	}
-	else {
-		D = raz(D, raz(A, B));
-		print(D, textBox11);
-	}
+	
 }
 private: System::Void button5_Click(System::Object^  sender, System::EventArgs^  e) {
 
 	if (textBox12->Text != "") {
-		if (E->IsEmpty()) {
+		
 			k3 = System::Convert::ToInt32(textBox12->Text);
 			E = pro(k3, A);
 			print(E, textBox11);
-		}
-		else {
-			E = pro(k3, pro(k3, A));
-			print(E, textBox11);
-		}
+		
 	}
 	textBox12->Text = "";
 }
@@ -696,15 +681,11 @@ private: System::Void textBox12_TextChanged(System::Object^  sender, System::Eve
 }
 private: System::Void button7_Click(System::Object^  sender, System::EventArgs^  e) {
 	if (textBox13->Text != "") {
-		if (F->IsEmpty()) {
+		
 			k2 = System::Convert::ToInt32(textBox13->Text);
 			F = pro(k2, B);
 			print(F, textBox11);
-		}
-		else {
-			F = pro(k2, pro(k2, B));
-			print(F, textBox11);
-		}
+		
 	}
 	textBox13->Text = "";
 }

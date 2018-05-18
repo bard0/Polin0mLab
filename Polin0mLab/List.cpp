@@ -67,7 +67,7 @@ void List::Del(int i) {
 	int j = 0;
 
 	while (j < i-1) {
-		i++;
+		j++;
 		t = t->GetNext();
 	}
 	a = t->GetNext();
@@ -127,7 +127,6 @@ bool List::IsEmpty() {
 void List::insert(int data, int degree) {
 		Monom* t = h;
 		int pos = 0;
-		int _dat = 0;
 		int len = 0;
 	if (IsEmpty()) {
 		addFirst(data, degree);
@@ -147,15 +146,15 @@ void List::insert(int data, int degree) {
 				SetLen(++len);
 			}
 			else {
-				addLast(data, degree);
-				while (degree < t->GetDegree()) {
+				//addLast(data, degree);
+				while (t && degree < t->GetDegree()) {
 					pos++;
 					t = t->GetNext();
 				}
 				add(data, degree, pos+1);
-				DelLast();
+				//DelLast();
 				len = GetLen();
-				SetLen(len+2);
+				SetLen(len+1);
 			}
 		
 	}
@@ -225,85 +224,67 @@ bool List::isContain(int degree) {
 
 List *sum(List *pol1, List *pol2) {
 	List *res = new List;
-	
-	int i = 0, j = 0;
-	for (i = 0; i < pol1->GetLen(); i++) {
-		for (j = 0; j < pol2->GetLen(); j++)
+	List *tmp = new List;
+	for (int i = 0; i < pol1->GetLen(); i++) {
+		for (int j = 0; j < pol2->GetLen(); j++)
 		{
 			if (pol1->GetCurrDegree(i) == pol2->GetCurrDegree(j)) {
-				res->insert(pol1->GetCurrData(i) + pol2->GetCurrData(j), pol1->GetCurrDegree(i));
+				tmp->insert(pol1->GetCurrData(i) + pol2->GetCurrData(j), pol1->GetCurrDegree(i));
 			}
 		}
 	}
 				
-	for (i = 0; i < pol1->GetLen(); i++) {
-		if (!res->isContain(pol1->GetCurrDegree(i)))
+	for (int i = 0; i < pol1->GetLen(); i++) {
+		if (!tmp->isContain(pol1->GetCurrDegree(i)))
 		{
-			res->insert(pol1->GetCurrData(i), pol1->GetCurrDegree(i));
+			tmp->insert(pol1->GetCurrData(i), pol1->GetCurrDegree(i));
 		}
 
 	}
 				
-	for (i = 0; i < pol2->GetLen(); i++) {
-		if (!res->isContain(pol2->GetCurrDegree(i))) {
-			res->insert(pol2->GetCurrData(i), pol2->GetCurrDegree(i));	
+	for (int i = 0; i < pol2->GetLen(); i++) {
+		if (!tmp->isContain(pol2->GetCurrDegree(i))) {
+			tmp->insert(pol2->GetCurrData(i), pol2->GetCurrDegree(i));	
 			}			
 	}
 			
-	for (i = 0; i < res->GetLen(); i++) {
-		if (res->GetCurrData(i) == 0) {
-			if (i == 0) {
-				res->DelFirst();
-			}
-			else if (i == res->GetLen()-1) {
-				res->DelLast();
-			}
-			else {
-				res->Del(i-1);
-			}
+	for (int i = 0; i < tmp->GetLen(); i++) {
+		if (tmp->GetCurrData(i) != 0) {
+			res->insert(tmp->GetCurrData(i), tmp->GetCurrDegree(i));
 		}
 	}
-		return res;
+	return res;
 }
 
 List *raz(List *pol1, List *pol2) {
 	List *res = new List;
-
-	int i = 0, j = 0;
-	for (i = 0; i < pol1->GetLen(); i++) {
-		for (j = 0; j < pol2->GetLen(); j++)
+	List *tmp = new List;
+	for (int i = 0; i < pol1->GetLen(); i++) {
+		for (int j = 0; j < pol2->GetLen(); j++)
 		{
 			if (pol1->GetCurrDegree(i) == pol2->GetCurrDegree(j)) {
-				res->insert(pol1->GetCurrData(i) - pol2->GetCurrData(j), pol2->GetCurrDegree(j));
+				tmp->insert(pol1->GetCurrData(i) - pol2->GetCurrData(j), pol2->GetCurrDegree(j));
 			}
 		}
 	}
 
-	for (i = 0; i < pol1->GetLen(); i++) {
-		if (!res->isContain(pol1->GetCurrDegree(i)))
+	for (int i = 0; i < pol1->GetLen(); i++) {
+		if (!tmp->isContain(pol1->GetCurrDegree(i)))
 		{
-			res->insert(pol1->GetCurrData(i), pol1->GetCurrDegree(i));
+			tmp->insert(pol1->GetCurrData(i), pol1->GetCurrDegree(i));
 		}
 
 	}
 
-	for (i = 0; i < pol2->GetLen(); i++) {
-		if (!res->isContain(pol2->GetCurrDegree(i))) {
-			res->insert(pol2->GetCurrData(i), pol2->GetCurrDegree(i));
+	for (int i = 0; i < pol2->GetLen(); i++) {
+		if (!tmp->isContain(pol2->GetCurrDegree(i))) {
+			tmp->insert(pol2->GetCurrData(i)*(-1), pol2->GetCurrDegree(i));
 		}
 	}
 
-	for (i = 0; i < res->GetLen(); i++) {
-		if (res->GetCurrData(i) == 0) {
-			if (i == 0) {
-				res->DelFirst();
-			}
-			else if (i == res->GetLen()) {
-				res->DelLast();
-			}
-			else {
-				res->Del(i);
-			}
+	for (int i = 0; i < tmp->GetLen(); i++) {
+		if (tmp->GetCurrData(i) != 0) {
+			res->insert(tmp->GetCurrData(i), tmp->GetCurrDegree(i));
 		}
 	}
 	return res;
