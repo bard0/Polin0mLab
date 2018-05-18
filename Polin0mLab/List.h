@@ -32,6 +32,6 @@ public:
 
 	friend List *sum(List *pol1, List *pol2);
 	friend List *raz(List *pol1, List *pol2);
-	friend List *pro(List *pol1, List *pol2);
+	friend List *pro(int k, List *pol);
 	
 };

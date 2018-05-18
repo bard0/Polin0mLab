@@ -27,7 +27,8 @@ namespace Polin0mLab {
 			B = new List;
 			C = new List;
 			D = new List;
-			E = new List;;
+			E = new List;
+			F = new List;
 
 		}
 
@@ -57,8 +58,8 @@ namespace Polin0mLab {
 	private: System::Windows::Forms::Button^  button1;
 	private: System::Windows::Forms::Button^  button2;
 	private: System::Windows::Forms::Button^  button3;
-			 int k, x, y, z, k1, x1, y1, z1;
-			 List *A, *B, *C, *D, *E;
+			 int k, x, y, z, k1, x1, y1, z1, k3, k2;
+			 List *A, *B, *C, *D, *E, *F;
 	private: System::Windows::Forms::Button^  button4;
 	private: System::Windows::Forms::Button^  button5;
 	private: System::Windows::Forms::Label^  label1;
@@ -72,6 +73,9 @@ namespace Polin0mLab {
 	private: System::Windows::Forms::Label^  P;
 	private: System::Windows::Forms::Label^  label9;
 	private: System::Windows::Forms::Button^  button6;
+	private: System::Windows::Forms::Button^  button7;
+	private: System::Windows::Forms::TextBox^  textBox12;
+	private: System::Windows::Forms::TextBox^  textBox13;
 
 
 
@@ -115,6 +119,9 @@ namespace Polin0mLab {
 			this->P = (gcnew System::Windows::Forms::Label());
 			this->label9 = (gcnew System::Windows::Forms::Label());
 			this->button6 = (gcnew System::Windows::Forms::Button());
+			this->button7 = (gcnew System::Windows::Forms::Button());
+			this->textBox12 = (gcnew System::Windows::Forms::TextBox());
+			this->textBox13 = (gcnew System::Windows::Forms::TextBox());
 			this->SuspendLayout();
 			// 
 			// textBox1
@@ -235,7 +242,7 @@ namespace Polin0mLab {
 			// 
 			// button3
 			// 
-			this->button3->Location = System::Drawing::Point(102, 174);
+			this->button3->Location = System::Drawing::Point(102, 195);
 			this->button3->Name = L"button3";
 			this->button3->Size = System::Drawing::Size(196, 27);
 			this->button3->TabIndex = 13;
@@ -245,9 +252,9 @@ namespace Polin0mLab {
 			// 
 			// button4
 			// 
-			this->button4->Location = System::Drawing::Point(331, 174);
+			this->button4->Location = System::Drawing::Point(331, 195);
 			this->button4->Name = L"button4";
-			this->button4->Size = System::Drawing::Size(207, 29);
+			this->button4->Size = System::Drawing::Size(207, 27);
 			this->button4->TabIndex = 14;
 			this->button4->Text = L"Вычесть";
 			this->button4->UseVisualStyleBackColor = true;
@@ -255,11 +262,11 @@ namespace Polin0mLab {
 			// 
 			// button5
 			// 
-			this->button5->Location = System::Drawing::Point(569, 174);
+			this->button5->Location = System::Drawing::Point(569, 159);
 			this->button5->Name = L"button5";
-			this->button5->Size = System::Drawing::Size(209, 28);
+			this->button5->Size = System::Drawing::Size(133, 43);
 			this->button5->TabIndex = 15;
-			this->button5->Text = L"Умножить";
+			this->button5->Text = L"Умножить полином 1 на число";
 			this->button5->UseVisualStyleBackColor = true;
 			this->button5->Click += gcnew System::EventHandler(this, &MyForm::button5_Click);
 			// 
@@ -373,11 +380,41 @@ namespace Polin0mLab {
 			this->button6->UseVisualStyleBackColor = true;
 			this->button6->Click += gcnew System::EventHandler(this, &MyForm::button6_Click);
 			// 
+			// button7
+			// 
+			this->button7->Location = System::Drawing::Point(569, 219);
+			this->button7->Name = L"button7";
+			this->button7->Size = System::Drawing::Size(133, 42);
+			this->button7->TabIndex = 20;
+			this->button7->Text = L"Умножить полином 2 на число";
+			this->button7->UseVisualStyleBackColor = true;
+			this->button7->Click += gcnew System::EventHandler(this, &MyForm::button7_Click);
+			// 
+			// textBox12
+			// 
+			this->textBox12->Location = System::Drawing::Point(708, 171);
+			this->textBox12->Name = L"textBox12";
+			this->textBox12->Size = System::Drawing::Size(29, 20);
+			this->textBox12->TabIndex = 21;
+			this->textBox12->TextChanged += gcnew System::EventHandler(this, &MyForm::textBox12_TextChanged);
+			this->textBox12->KeyPress += gcnew System::Windows::Forms::KeyPressEventHandler(this, &MyForm::textBox12_KeyPress);
+			// 
+			// textBox13
+			// 
+			this->textBox13->Location = System::Drawing::Point(708, 231);
+			this->textBox13->Name = L"textBox13";
+			this->textBox13->Size = System::Drawing::Size(29, 20);
+			this->textBox13->TabIndex = 22;
+			this->textBox13->KeyPress += gcnew System::Windows::Forms::KeyPressEventHandler(this, &MyForm::textBox13_KeyPress);
+			// 
 			// MyForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(847, 373);
+			this->Controls->Add(this->textBox13);
+			this->Controls->Add(this->textBox12);
+			this->Controls->Add(this->button7);
 			this->Controls->Add(this->button6);
 			this->Controls->Add(this->label9);
 			this->Controls->Add(this->P);
@@ -467,7 +504,7 @@ private: System::Void button1_Click(System::Object^  sender, System::EventArgs^ 
 	}
 }
 private: System::Void button2_Click(System::Object^  sender, System::EventArgs^  e) {
-	if (textBox6->Text != "" && textBox7->Text != "" && textBox8->Text != "" && textBox9->Text != "") {
+	if (textBox6->Text != "" && textBox7->Text != "" && textBox8->Text != "" && textBox5->Text != "") {
 		k1 = System::Convert::ToInt32(textBox5->Text);
 		x1 = System::Convert::ToInt32(textBox6->Text);
 		y1 = System::Convert::ToInt32(textBox7->Text);
@@ -607,14 +644,19 @@ private: System::Void button4_Click(System::Object^  sender, System::EventArgs^ 
 	}
 }
 private: System::Void button5_Click(System::Object^  sender, System::EventArgs^  e) {
-	if (E->IsEmpty()) {
-		E = pro(A, B);
-		print(E, textBox11);
+
+	if (textBox12->Text != "") {
+		if (E->IsEmpty()) {
+			k3 = System::Convert::ToInt32(textBox12->Text);
+			E = pro(k3, A);
+			print(E, textBox11);
+		}
+		else {
+			E = pro(k3, pro(k3, A));
+			print(E, textBox11);
+		}
 	}
-	else {
-		E = pro(E, pro(A, B));
-		print(E, textBox11);
-	}
+	textBox12->Text = "";
 }
 private: System::Void button6_Click(System::Object^  sender, System::EventArgs^  e) {
 	if (!A->IsEmpty()) {
@@ -645,6 +687,55 @@ private: System::Void button6_Click(System::Object^  sender, System::EventArgs^ 
 		E->DelAll();
 		textBox11->Text = "";
 	}
+	if (!F->IsEmpty()) {
+		F->DelAll();
+		textBox11->Text = "";
+	}
+}
+private: System::Void textBox12_TextChanged(System::Object^  sender, System::EventArgs^  e) {
+}
+private: System::Void button7_Click(System::Object^  sender, System::EventArgs^  e) {
+	if (textBox13->Text != "") {
+		if (F->IsEmpty()) {
+			k2 = System::Convert::ToInt32(textBox13->Text);
+			F = pro(k2, B);
+			print(F, textBox11);
+		}
+		else {
+			F = pro(k2, pro(k2, B));
+			print(F, textBox11);
+		}
+	}
+	textBox13->Text = "";
+}
+private: System::Void textBox12_KeyPress(System::Object^  sender, System::Windows::Forms::KeyPressEventArgs^  e) {
+	if ((e->KeyChar <= 47 || e->KeyChar >= 58) && e->KeyChar != 8)
+	{
+		e->Handled = true;
+	}
+	if (textBox12->Text == "" && e->KeyChar == 48) {
+		e->Handled = true;
+	}
+	if (e->KeyChar == 48 && textBox12->Text != "" && textBox12->SelectionStart == 0)
+		e->Handled = true;
+
+	if (e->KeyChar == 45)
+		e->Handled = false;
+	
+}
+private: System::Void textBox13_KeyPress(System::Object^  sender, System::Windows::Forms::KeyPressEventArgs^  e) {
+	if ((e->KeyChar <= 47 || e->KeyChar >= 58) && e->KeyChar != 8)
+	{
+		e->Handled = true;
+	}
+	if (textBox13->Text == "" && e->KeyChar == 48) {
+		e->Handled = true;
+	}
+	if (e->KeyChar == 48 && textBox13->Text != "" && textBox13->SelectionStart == 0)
+		e->Handled = true;
+
+	if (e->KeyChar == 45)
+		e->Handled = false;
 }
 };
 }

@@ -225,13 +225,13 @@ bool List::isContain(int degree) {
 
 List *sum(List *pol1, List *pol2) {
 	List *res = new List;
-	List *ptr = new List;
+	
 	int i = 0, j = 0;
 	for (i = 0; i < pol1->GetLen(); i++) {
 		for (j = 0; j < pol2->GetLen(); j++)
 		{
 			if (pol1->GetCurrDegree(i) == pol2->GetCurrDegree(j)) {
-				res->insert(pol1->GetCurrData(i) + pol2->GetCurrData(j), pol2->GetCurrDegree(j));
+				res->insert(pol1->GetCurrData(i) + pol2->GetCurrData(j), pol1->GetCurrDegree(i));
 			}
 		}
 	}
@@ -268,7 +268,7 @@ List *sum(List *pol1, List *pol2) {
 
 List *raz(List *pol1, List *pol2) {
 	List *res = new List;
-	List *ptr = new List;
+
 	int i = 0, j = 0;
 	for (i = 0; i < pol1->GetLen(); i++) {
 		for (j = 0; j < pol2->GetLen(); j++)
@@ -298,7 +298,7 @@ List *raz(List *pol1, List *pol2) {
 			if (i == 0) {
 				res->DelFirst();
 			}
-			else if (i == res->GetLen() - 1) {
+			else if (i == res->GetLen()) {
 				res->DelLast();
 			}
 			else {
@@ -309,34 +309,14 @@ List *raz(List *pol1, List *pol2) {
 	return res;
 }
 
-List *pro(List *pol1, List *pol2) {
+List *pro(int k, List *pol) {
 	List *res = new List;
-	List *ptr = new List;
-	int i = 0, j = 0;
-	for (i = 0; i < pol1->GetLen(); i++) {
-		for (j = 0; j < pol2->GetLen(); j++)
-		{
-			if (pol1->GetCurrDegree(i) == pol2->GetCurrDegree(j)) {
-				res->insert(pol1->GetCurrData(i) * pol2->GetCurrData(j), pol2->GetCurrDegree(j));
-			}
-		}
+	
+	for (int i = 0; i < pol->GetLen(); i++) {
+			res->insert(pol->GetCurrData(i) * k, pol->GetCurrDegree(i));
 	}
 
-	for (i = 0; i < pol1->GetLen(); i++) {
-		if (!res->isContain(pol1->GetCurrDegree(i)))
-		{
-			res->insert(pol1->GetCurrData(i), pol1->GetCurrDegree(i));
-		}
-
-	}
-
-	for (i = 0; i < pol2->GetLen(); i++) {
-		if (!res->isContain(pol2->GetCurrDegree(i))) {
-			res->insert(pol2->GetCurrData(i), pol2->GetCurrDegree(i));
-		}
-	}
-
-	for (i = 0; i < res->GetLen(); i++) {
+	for ( int i = 0; i < res->GetLen(); i++) {
 		if (res->GetCurrData(i) == 0) {
 			if (i == 0) {
 				res->DelFirst();
